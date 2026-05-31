@@ -1,0 +1,23 @@
+spring:
+  cache:
+    type: simple
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      device-registry:
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+        record-exceptions:
+          - java.lang.Exception
+  timelimiter:
+    instances:
+      device-registry:
+        timeout-duration: 1s
+
+gridflow:
+  services:
+    device-registry:
+      url: http://localhost:0

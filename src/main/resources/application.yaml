@@ -1,0 +1,41 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:certs/gateway-keystore.p12
+    key-store-password: gridflow-secret
+    key-store-type: PKCS12
+    trust-store: classpath:certs/ca-truststore.p12
+    trust-store-password: gridflow-secret
+    trust-store-type: PKCS12
+    client-auth: need
+gridflow:
+  services:
+    device-registry:
+      url: https://device-registry-service:8443
+
+spring:
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      device-registry:
+        failure-rate-threshold: 50
+        sliding-window-size: 10
+        sliding-window-type: COUNT_BASED
+
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 3
+
+  timelimiter:
+    instances:
+      device-registry:
+        timeout-duration: 2s
