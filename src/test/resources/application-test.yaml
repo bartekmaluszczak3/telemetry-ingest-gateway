@@ -21,3 +21,4 @@ gridflow:
   services:
     device-registry:
       url: http://localhost:0
+

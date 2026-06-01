@@ -10,6 +10,15 @@ server:
     trust-store-type: PKCS12
     client-auth: need
 gridflow:
+  kafka:
+    topics:
+      dlq: telemetry.dlq
+      routing:
+        SMART_METER:     telemetry.meters
+        SOLAR_PANEL:     telemetry.solar
+        WIND_TURBINE:    telemetry.wind
+        EV_CHARGER:      telemetry.ev
+        BATTERY_STORAGE: telemetry.battery
   services:
     device-registry:
       url: https://device-registry-service:8443
