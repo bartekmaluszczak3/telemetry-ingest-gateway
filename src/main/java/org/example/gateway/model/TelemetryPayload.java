@@ -1,16 +1,12 @@
 package org.example.gateway.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.extern.jackson.Jacksonized;
 import org.example.gateway.value.DeviceType;
 
 import java.time.Instant;
 
-@Jacksonized
-@Builder
-@AllArgsConstructor
 @Getter
 public class TelemetryPayload {
     private final String deviceId;
@@ -18,5 +14,18 @@ public class TelemetryPayload {
     private final Instant timestamp;
     private final Readings readings;
     private String gridZone;
-    private Instant receivedAt;
+    private final Instant receivedAt;
+
+    @JsonCreator
+    public TelemetryPayload(
+            @JsonProperty("deviceId") String deviceId,
+            @JsonProperty("deviceType") DeviceType deviceType,
+            @JsonProperty("timestamp") Instant timestamp,
+            @JsonProperty("readings") Readings readings) {
+        this.deviceId = deviceId;
+        this.deviceType = deviceType;
+        this.timestamp = timestamp;
+        this.readings = readings;
+        this.receivedAt = Instant.now();
+    }
 }

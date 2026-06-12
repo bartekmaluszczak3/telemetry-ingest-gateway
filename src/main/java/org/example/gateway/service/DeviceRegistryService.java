@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.gateway.exception.DeviceRegistryException;
 import org.example.gateway.value.DeviceInfo;
 import org.example.gateway.value.DeviceStatus;
+import org.example.gateway.value.DeviceType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -55,6 +56,9 @@ public class DeviceRegistryService {
         } catch (DeviceRegistryException e) {
             return false;
         }
+    }
+    public DeviceType getDeviceType(String deviceId) throws DeviceRegistryException {
+        return getRegisteredDevice(deviceId).deviceType();
     }
 
     @CacheEvict(value = CACHE_NAME, key = "#deviceId")

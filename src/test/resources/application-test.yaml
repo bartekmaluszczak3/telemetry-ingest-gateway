@@ -1,8 +1,11 @@
 spring:
-  cache:
-    type: simple
-
-
+  kafka:
+    bootstrap-servers: localhost:9092  # nadpisywane przez @ServiceConnection
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.add.type.headers: false
 resilience4j:
   circuitbreaker:
     instances:
