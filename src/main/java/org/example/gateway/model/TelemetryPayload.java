@@ -3,11 +3,13 @@ package org.example.gateway.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.Setter;
 import org.example.gateway.value.DeviceType;
 
 import java.time.Instant;
 
 @Getter
+@Setter
 public class TelemetryPayload {
     private final String deviceId;
     private final DeviceType deviceType;

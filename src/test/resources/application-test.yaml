@@ -1,4 +1,22 @@
 spring:
+  cache:
+    type: none
+
+  data:
+    redis:
+      enabled: false
+  security:
+    filter:
+      order: 999999
+    user:
+      name: testuser
+      password: testpass
+
+    # Wyłącz wszystkie security endpointy
+    management:
+      endpoints:
+        web:
+          exposure:
   kafka:
     bootstrap-servers: localhost:9092  # nadpisywane przez @ServiceConnection
     producer:
@@ -23,5 +41,13 @@ resilience4j:
 gridflow:
   services:
     device-registry:
-      url: http://localhost:0
-
+      url: http://localhost:1010
+server:
+  port: 0  # random port
+  ssl:
+    key-store: classpath:certs/gateway-keystore.p12
+    key-store-password: gridflow-secret
+    key-store-type: PKCS12
+    trust-store: classpath:certs/ca-truststore.p12
+    trust-store-password: gridflow-secret
+    client-auth: want  # ← wymaga certyfikatu od klienta
